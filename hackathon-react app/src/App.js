@@ -1,4 +1,15 @@
-import logo from './logo.svg';
+import React from 'react'
+import './App.css'
+import SearchBar from './components/searchBar'
+
+function App() {
+  return (
+     <div classname='App'>
+       <Login />
+     </div>
+)}
+
+/* import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -21,5 +32,5 @@ function App() {
     </div>
   );
 }
-
+ */
 export default App;
