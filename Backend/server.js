@@ -29,7 +29,7 @@ function connect() {
   
 const getPeople = async (callback) => {
     try {
-        const peopleCollection = db.collection(" X ");              //the X will be noSalary or Salary
+        const peopleCollection = db.collection("Salary");              //insert name of the collection that we are working with      
         const data = await peopleCollection.find().toArray();
         callback(data);
         cleanup();
@@ -45,7 +45,7 @@ const cleanup = (event) => {
    };
   
 
-app.get('/people', (req, res) => {
+app.get('/salaries', (req, res) => {
 
     let processData = (data) => {console.log(data);}
 
