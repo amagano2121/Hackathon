@@ -1,20 +1,23 @@
+
 const e = require("express");
 const express = require("express");
 
 const app = express();
 
-const port = 7000;
+const port = 5900;
 
 console.log("Server starting on port: " + port)
 
 app.listen(port)
 
+//-------------The about ^^^ sets up the port that we are going to listen on-------------//
+
 const mongodb = require("mongodb")
 const { MongoClient } = require("mongodb");
 
-const uri = "mongodb+srv://dbuser:Vegan07212000!@starwarscharacters.k6zkvly.mongodb.net/Hackathon";
+const uri = "mongodb+srv://dbuser:Vegan07212000!@starwarscharacters.k6zkvly.mongodb.net/swapi";
 const client = new MongoClient(uri);
-const db = client.db("Hackathon");
+const db = client.db("swapi");
 
 // get connetion info
 function connect() {
@@ -29,7 +32,7 @@ function connect() {
   
 const getPeople = async (callback) => {
     try {
-        const peopleCollection = db.collection("Salary");              //insert name of the collection that we are working with      
+        const peopleCollection = db.collection("people");
         const data = await peopleCollection.find().toArray();
         callback(data);
         cleanup();
@@ -45,10 +48,20 @@ const cleanup = (event) => {
    };
   
 
-app.get('/salaries', (req, res) => {
+app.get('/people', (req, res) => {
 
-    let processData = (data) => {console.log(data);}
+    let processData = (data) => {/* console.log(data); */}
 
     res.send(getPeople(processData))
 
 });
+   
+
+
+
+
+
+
+
+
+
