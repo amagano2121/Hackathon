@@ -4,16 +4,10 @@ export const Login = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label for="username">
-          Username:
-        </ label>
-
+        <label for="username">Username: </ label>
         <input type="text" id="username" />
 
-        <label for="password">
-          Password:
-        </ label>
-
+        <label for="password">Password: </ label>
         <input type="text" id="password" />
 
         <input type="submit" value="Submit" />
