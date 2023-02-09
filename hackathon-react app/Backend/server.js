@@ -2,12 +2,9 @@ const e = require("express");
 const express = require("express");
 
 const app = express();
-
 const port = 3002;
-
-console.log("Server starting on port: " + port)
-
 app.listen(port)
+console.log("Server starting on port: " + port)
 
 const mongodb = require("mongodb")
 const { MongoClient } = require("mongodb");
@@ -32,31 +29,20 @@ const getPeople = async (callback) => {
       const peopleCollection = db.collection("Salary");              //insert name of the collection that we are working with      
       const data = await peopleCollection.find().toArray();
       callback(data);
-      cleanup();
    } catch (error) {
       console.error(error);
       return error;
    }
 };
 
-const cleanup = (event) => {
-   client.close();
-   process.exit();
-};
-
-
-app.get('/salaries', (req, res) => {
-
-   let processData = (data) => { console.log(data); }
-
-   res.send(getPeople(processData))
-
-});
-
 app.get('/directory', (req, res) => {
 
-   let processData = (data) => { console.log(data); }
+   let processData = (data) => {
+      console.log(data);
+      res.send(data);
+   }
 
-   res.send(getPeople(processData))
+   getPeople(processData)
+   //res.send('hello')
 
 })
