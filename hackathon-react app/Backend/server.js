@@ -19,8 +19,6 @@ const db = client.db("Hackathon");
 
 //^^^^^^^^^^^^^^Set up^^^^^^^^^^^^^^//
 
-const username = res.username
-
 // get connetion info
 function connect() {
    try {
@@ -32,8 +30,8 @@ function connect() {
    }
 }
 
-//returns all people from collection including their salaries
 
+//returns all people from collection including their salaries
 const getPeople = async (callback) => {
    try {
       const peopleCollection = db.collection("Salary");
@@ -60,16 +58,37 @@ const filteroutSalary = async (callback) => {
    }
 };
 
-app.get('/directory', (req, res) => {
+
+app.get('/directory/:username', async (req, res) => {
+
+   //should be the user's username
+   const username = req.params.username
+   console.log(username)
+
+   //should return just the role of the user
+   const user = await db.collection('Salary').findOne({ last_name: username })
+   console.log(user)
+
+   const direct_reports = user.direct_reports
 
    let processData = (data) => {
-      console.log(data);
+
       res.send(data);
    }
 
-   //if the user is a manger/HR then
-   //getPeople(processData)
+   if (user.role === 'HR') {
+      getPeople(processData)           //they can see everbody and their salaries 
+   }
 
-   //otherwise:
-   filteroutSalary(processData)
+   if (user.role === 'Manager') {
+
+      //managerFilter(username)
+
+   }
+
+   else {
+
+      filteroutSalary(processData)     //otherwise they can only see people without their salaries
+
+   }
 })
