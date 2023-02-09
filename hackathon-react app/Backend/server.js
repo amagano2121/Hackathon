@@ -17,6 +17,10 @@ const uri = "mongodb+srv://dbuser:Vegan07212000!@starwarscharacters.k6zkvly.mong
 const client = new MongoClient(uri);
 const db = client.db("Hackathon");
 
+//^^^^^^^^^^^^^^Set up^^^^^^^^^^^^^^//
+
+const username = res.username
+
 // get connetion info
 function connect() {
    try {
@@ -28,11 +32,12 @@ function connect() {
    }
 }
 
-//This function returns all people with salaries
+//returns all people from collection including their salaries
+
 const getPeople = async (callback) => {
    try {
       const peopleCollection = db.collection("Salary");
-      const data = await peopleCollection.find().toArray();
+      const data = await peopleCollection.find({}).toArray();
       callback(data);
 
    } catch (error) {
@@ -41,18 +46,12 @@ const getPeople = async (callback) => {
    }
 };
 
-//This function returns people with no salaries
-const filterPeople = async (callback) => {
+//returns all people from collection excluding their salaries
+
+const filteroutSalary = async (callback) => {
    try {
       const peopleCollection = db.collection("Salary");
-      const data = await peopleCollection.find({
-         first_name: {},
-         last_name: {},
-         phone: {},
-         role: {},
-         location: {},
-      }).toArray();
-
+      const data = await peopleCollection.find({}).project({ salary: 0 }).toArray();
       callback(data);
 
    } catch (error) {
@@ -69,8 +68,8 @@ app.get('/directory', (req, res) => {
    }
 
    //if the user is a manger/HR then
-   getPeople(processData)
+   //getPeople(processData)
 
    //otherwise:
-   //filterPeople(processData)
+   filteroutSalary(processData)
 })
