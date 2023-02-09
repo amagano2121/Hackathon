@@ -17,9 +17,9 @@ export const Directory = () => {
 }
 
 const getPeople = () => {
-    const url = 'http://localhost:3004/directory'
+    const url = 'http://localhost:3004/directory/Brown'
 
-    return fetch(url, { username: "Brown" })
+    return fetch(url)
         .then(res => res.json())
         .then(res => { console.log(res); return res })
 }
