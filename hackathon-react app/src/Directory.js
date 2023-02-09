@@ -1,21 +1,25 @@
-let allPeople = []
+import { useState, useEffect } from "react";
+import { Person } from "./Person";
 
 export const Directory = () => {
-
-    //const [people, setPeople] = useState([]);
-    getPeople();
+    const [people, setPeople] = useState([]);
+    useEffect(() => {
+        getPeople().then(listOfPeople => setPeople(listOfPeople));
+    }, [])
 
     return (
-        <p>"Hello"</p>
+        <>
+            {people.map(person =>
+                <Person {...person} key={person._id} />
+            )}
+        </>
     )
 }
 
-const getPeople = async () => {
-    let url = 'http://localhost:3004/directory'
+const getPeople = () => {
+    const url = 'http://localhost:3004/directory'
 
-    allPeople = await fetch(url)
+    return fetch(url)
         .then(res => res.json())
         .then(res => { console.log(res); return res })
-
-    console.log(allPeople);
 }

@@ -3,7 +3,7 @@ import { Directory } from './Directory'
 export const Login = () => {
   return (
     <>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleSignin}>
         <label htmlFor="username">Username: </ label>
         <input type="text" id="username" />
 
@@ -19,7 +19,7 @@ export const Login = () => {
   );
 }
 
-const handleLogin = (event) => {
+const handleSignin = (event) => {
   event.preventDefault();
 
   const usernameInput = event.target.username;
