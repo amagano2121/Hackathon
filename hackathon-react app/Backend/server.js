@@ -2,9 +2,12 @@ const e = require("express");
 const express = require("express");
 
 const app = express();
+
 const port = 3002;
-app.listen(port)
+
 console.log("Server starting on port: " + port)
+
+app.listen(port)
 
 const mongodb = require("mongodb")
 const { MongoClient } = require("mongodb");
@@ -24,11 +27,33 @@ function connect() {
    }
 }
 
+//This function returns all people with salaries
 const getPeople = async (callback) => {
    try {
-      const peopleCollection = db.collection("Salary");              //insert name of the collection that we are working with      
+      const peopleCollection = db.collection("Salary");
       const data = await peopleCollection.find().toArray();
       callback(data);
+
+   } catch (error) {
+      console.error(error);
+      return error;
+   }
+};
+
+//This function returns people with no salaries
+const filterPeople = async (callback) => {
+   try {
+      const peopleCollection = db.collection("Salary");
+      const data = await peopleCollection.find({
+         first_name: {},
+         last_name: {},
+         phone: {},
+         role: {},
+         location: {},
+      }).toArray();
+
+      callback(data);
+
    } catch (error) {
       console.error(error);
       return error;
@@ -42,7 +67,9 @@ app.get('/directory', (req, res) => {
       res.send(data);
    }
 
+   //if the user is a manger/HR then
    getPeople(processData)
-   //res.send('hello')
 
+   //otherwise:
+   //filterPeople(processData)
 })
