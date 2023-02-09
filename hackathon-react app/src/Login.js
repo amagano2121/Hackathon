@@ -1,32 +1,36 @@
+import { Directory } from './Directory'
 
 export const Login = () => {
-    return (
+  return (
+    <>
       <form onSubmit={handleSubmit}>
         <label for="username">
           Username:
         </ label>
-        
+
         <input type="text" id="username" />
 
         <label for="password">
           Password:
-        </ label>  
+        </ label>
 
         <input type="text" id="password" />
 
         <input type="submit" value="Submit" />
       </form>
-    );
-  }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+      <Directory />
+    </>
+  );
+}
 
-    const usernameInput = event.target.username;
-    const passwordInput = event.target.password;
+const handleSubmit = (event) => {
+  event.preventDefault();
 
-    console.log(usernameInput.value);
-    console.log(passwordInput.value);
-  }
+  const usernameInput = event.target.username;
+  const passwordInput = event.target.password;
 
-  
+  console.log(usernameInput.value);
+  console.log(passwordInput.value);
+}
+

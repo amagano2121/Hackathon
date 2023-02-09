@@ -5,9 +5,10 @@ import './App.css'
 
 function App() {
   return (
-     <div classname='App'>
-       <Login />
-     </div>
-)}
+    <div classname='App'>
+      <Login />
+    </div>
+  )
+}
 
 export default App;
