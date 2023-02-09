@@ -6,7 +6,7 @@ import { styles } from './style'
 
 function App() {
   return (
-    <div classname='App'>
+    <div className='App'>
       <Login />
     </div>
   )
