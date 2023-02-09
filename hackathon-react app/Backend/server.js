@@ -43,6 +43,5 @@ app.get('/directory', (req, res) => {
    }
 
    getPeople(processData)
-   //res.send('hello')
 
 })
