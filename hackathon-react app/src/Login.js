@@ -3,7 +3,7 @@ import { Directory } from './Directory'
 export const Login = () => {
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleLogin}>
         <label htmlFor="username">Username: </ label>
         <input type="text" id="username" />
 
@@ -13,12 +13,13 @@ export const Login = () => {
         <input type="submit" value="Submit" />
       </form>
 
+      <button onClick={handleSignout}>Sign out</button>
       <Directory />
     </>
   );
 }
 
-const handleSubmit = (event) => {
+const handleLogin = (event) => {
   event.preventDefault();
 
   const usernameInput = event.target.username;
@@ -28,3 +29,8 @@ const handleSubmit = (event) => {
   console.log(passwordInput.value);
 }
 
+const handleSignout = () => {
+  if (localStorage.getItem('login')) {
+
+  }
+}

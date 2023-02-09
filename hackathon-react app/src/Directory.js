@@ -11,7 +11,7 @@ export const Directory = () => {
 }
 
 const getPeople = async () => {
-    let url = 'http://localhost:3002/directory'
+    let url = 'http://localhost:3004/directory'
 
     allPeople = await fetch(url)
         .then(res => res.json())
