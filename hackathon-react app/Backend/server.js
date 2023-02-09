@@ -32,7 +32,7 @@ function connect() {
 
 
 //returns all people from collection including their salaries
-const getPeople = async (callback) => {
+/*const getPeople = async (callback) => {
    try {
       const peopleCollection = db.collection("Salary");
       const data = await peopleCollection.find({}).toArray();
@@ -42,7 +42,8 @@ const getPeople = async (callback) => {
       console.error(error);
       return error;
    }
-};
+};*/
+
 
 //returns all people from collection excluding their salaries
 
@@ -58,37 +59,43 @@ const filteroutSalary = async (callback) => {
    }
 };
 
-
 app.get('/directory/:username', async (req, res) => {
 
-   //should be the user's username
-   const username = req.params.username
-   console.log(username)
+   let returned_people = []
 
-   //should return just the role of the user
+   //return the user's username
+   const username = req.params.username
+
+   //return just the user
    const user = await db.collection('Salary').findOne({ last_name: username })
-   console.log(user)
 
    const direct_reports = user.direct_reports
 
-   let processData = (data) => {
-
-      res.send(data);
-   }
-
    if (user.role === 'HR') {
-      getPeople(processData)           //they can see everbody and their salaries 
+
+      const employee_salaries = await db.collection("Salary").find({}).toArray()
+
+         .then(people => { console.log(people); returned_people.push(...people) })
+
+      //returned_people.push(...getPeople(processData))
    }
 
    if (user.role === 'Manager') {
 
-      //managerFilter(username)
-
+      const direct_report_salaries = await db.collection("Salary").find(
+         { last_name: { $in: direct_reports } }
+      ).toArray()
+         .then(people => { console.log(people); returned_people.push(...people) })
    }
 
    else {
 
-      filteroutSalary(processData)     //otherwise they can only see people without their salaries
+      returned_people.push(user)
 
    }
+
+   //let processData = (data) => {
+   // res.send(data);
+   //}
+   res.send(returned_people)
 })
