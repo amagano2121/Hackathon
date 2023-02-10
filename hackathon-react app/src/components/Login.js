@@ -15,8 +15,11 @@ export const Login = () => {
       </form>
       <button onClick={handleSignout}>Sign out</button>
 
+      <hr />
+      <h4>Directory</h4>
       <Directory />
-      <br />
+      <hr />
+      <h4>Viewable Compensations</h4>
       <PayDirectory />
     </>
   );
