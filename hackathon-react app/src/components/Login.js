@@ -1,19 +1,33 @@
 import { Directory } from './Directory'
 import { PayDirectory } from './PayDirectory';
+import './Login.css'
+import logo from './Travelers-Logo.jpg'
 
 export const Login = () => {
   return (
     <>
-      <form onSubmit={handleSignin}>
-        <label htmlFor="username">Username: </ label>
+      <header className='Login-header'>
+
+        <div>
+          <img src={logo} className='Login-logo' />
+        </div>
+
+        <div>
+          <h1 className='Login-Directory'>
+            | Employee Directory Login
+          </h1>
+        </div>
+
+      </header>
+      <form onSubmit={handleSignin} className='Login-Form'>
+        <div><label htmlFor="username" className="Login">Username: </label></div>
         <input type="text" id="username" />
 
-        <label htmlFor="password">Password: </ label>
+        <div><label htmlFor="password" className="Login">Password: </label></div>
         <input type="text" id="password" />
 
-        <input type="submit" value="Submit" />
+        <div><button>Submit</button></div>
       </form>
-      <button onClick={handleSignout}>Sign out</button>
 
       <hr />
       <h4>Directory</h4>
@@ -50,8 +64,8 @@ const handleSignin = (event) => {
     .then(res => { console.log(res); return res })
 }
 
-const handleSignout = () => {
+/* const handleSignout = () => {
   if (localStorage.getItem('login')) {
 
   }
-}
+} */

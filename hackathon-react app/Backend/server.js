@@ -93,7 +93,7 @@ app.get('/directory/:username', async (req, res) => {
       const direct_report_salaries = await db.collection("Salary")
          .find({ last_name: { $in: direct_reports } })
          .toArray()
-         .then(people => { console.log(people); returned_people.push(...people) })
+         .then(people => { console.log(people); returned_people.push(user); returned_people.push(...people) })
    }
 
    else {
@@ -112,8 +112,8 @@ app.post('/login', async (req, res) => {
    console.log(req.body);
    attemptedPW = req.body.password
    attemptedUN = req.body.username
-   console.log(attemptedPW)
-   console.log(attemptedUN)
+   //console.log(attemptedPW)
+   //console.log(attemptedUN)
    //res.send(await db.collection('Salary').findOne({}))
 
 })
