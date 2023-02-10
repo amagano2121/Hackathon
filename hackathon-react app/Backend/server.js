@@ -68,6 +68,12 @@ app.get('/directory', async (req, res) => {
 })
 
 app.get('/directory/:username', async (req, res) => {
+   console.log(req.headers)
+   attemptedPW = req.headers.password
+   attemptedUN = req.headers.username
+   let valid = ((await db.collection('Usernames/Passwords')
+      .findOne({ username: attemptedUN }))?.password === attemptedPW);
+   console.log(`/directory/user:`, req.headers, valid);
 
    let returned_people = []
 
@@ -109,11 +115,19 @@ app.get('/directory/:username', async (req, res) => {
 })
 
 app.post('/login', async (req, res) => {
-   console.log(req.body);
    attemptedPW = req.body.password
    attemptedUN = req.body.username
+   let loggedInUser = ((await db.collection('Usernames/Passwords')
+      .findOne({ username: attemptedUN, password: attemptedPW })));
+   console.log('/login:', req.body, loggedInUser);
+
    //console.log(attemptedPW)
    //console.log(attemptedUN)
    //res.send(await db.collection('Salary').findOne({}))
+   if (loggedInUser) {
+      res.send(loggedInUser)
+   } else {
+      res.status(304).send()
+   }
 
 })

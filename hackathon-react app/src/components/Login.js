@@ -2,8 +2,11 @@ import { Directory } from './Directory'
 import { PayDirectory } from './PayDirectory';
 import './Login.css'
 import logo from './Travelers-Logo.jpg'
+import { useEffect, useState } from 'react';
 
 export const Login = () => {
+  const [foo, setFoo] = useState()
+
   return (
     <>
       <header className='Login-header'>
@@ -28,44 +31,52 @@ export const Login = () => {
 
         <div><button>Submit</button></div>
       </form>
+      <button onClick={handleSignout}>Sign out</button>
 
       <hr />
       <h4>Directory</h4>
       <Directory />
       <hr />
       <h4>Viewable Compensations</h4>
-      <PayDirectory />
+      <PayDirectory foo={foo} />
     </>
   );
-}
+  function handleSignin(event) {
+    event.preventDefault();
 
-const handleSignin = (event) => {
-  event.preventDefault();
+    const usernameInput = event.target.username.value;
+    const passwordInput = event.target.password.value;
 
-  const usernameInput = event.target.username.value;
-  const passwordInput = event.target.password.value;
+    console.log(usernameInput);
+    console.log(passwordInput);
 
-  console.log(usernameInput);
-  console.log(passwordInput);
+    const url = 'http://localhost:3004/login'
 
-  const url = 'http://localhost:3004/login'
+    localStorage.setItem('token', JSON.stringify({
+      'username': usernameInput,
+      'password': passwordInput
+    }))
 
-  return fetch(url, {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      username: usernameInput,
-      password: passwordInput
+    let request = fetch(url, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: usernameInput,
+        password: passwordInput
+      })
     })
-  })
-    .then(res => res.json())
-    .then(res => { console.log(res); return res })
+      .then(res => { if (res.ok) { return res } else { throw "bad username/password" } })
+      .then(res => res.json())
+      .then(res => { console.log("login fetch:", res); return res })
+      .then(() => setFoo(Math.random()))
+      .catch(err => console.error("couldn't log in", err))
+  }
+
+  function handleSignout(event) {
+    console.log('deleting: ', JSON.parse(localStorage.getItem('token')))
+    localStorage.removeItem('token')
+  }
 }
 
-/* const handleSignout = () => {
-  if (localStorage.getItem('login')) {
-
-  }
-} */
