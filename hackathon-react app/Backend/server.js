@@ -1,9 +1,11 @@
 const e = require("express");
 const cors = require("cors");
 const express = require("express");
+const bodyParser = require("body-parser")
 
 const app = express();
 app.use(cors())
+app.use(bodyParser.json());
 const port = 3004;
 
 console.log("Server starting on port: " + port)
@@ -52,12 +54,18 @@ const filteroutSalary = async (callback) => {
       const peopleCollection = db.collection("Salary");
       const data = await peopleCollection.find({}).project({ salary: 0 }).toArray();
       callback(data);
-
    } catch (error) {
       console.error(error);
       return error;
    }
 };
+
+app.get('/directory', async (req, res) => {
+   let processData = (data) => {
+      res.send(data);
+   }
+   filteroutSalary(processData)
+})
 
 app.get('/directory/:username', async (req, res) => {
 
@@ -73,18 +81,18 @@ app.get('/directory/:username', async (req, res) => {
 
    if (user.role === 'HR') {
 
-      const employee_salaries = await db.collection("Salary").find({}).toArray()
-
+      const employee_salaries = await db.collection("Salary")
+         .find({})
+         .toArray()
          .then(people => { console.log(people); returned_people.push(...people) })
 
-      //returned_people.push(...getPeople(processData))
    }
 
-   if (user.role === 'Manager') {
+   else if (user.role === 'Manager') {
 
-      const direct_report_salaries = await db.collection("Salary").find(
-         { last_name: { $in: direct_reports } }
-      ).toArray()
+      const direct_report_salaries = await db.collection("Salary")
+         .find({ last_name: { $in: direct_reports } })
+         .toArray()
          .then(people => { console.log(people); returned_people.push(...people) })
    }
 
@@ -98,4 +106,14 @@ app.get('/directory/:username', async (req, res) => {
    // res.send(data);
    //}
    res.send(returned_people)
+})
+
+app.post('/login', async (req, res) => {
+   console.log(req);
+   attemptedPW = req.body.password
+   attemptedUN = req.body.username
+   console.log(attemptedPW)
+   console.log(attemptedUN)
+   //res.send(await db.collection('Salary').findOne({}))
+
 })
