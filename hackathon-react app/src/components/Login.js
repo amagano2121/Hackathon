@@ -28,20 +28,23 @@ export const Login = () => {
 const handleSignin = (event) => {
   event.preventDefault();
 
-  const usernameInput = event.target.username;
-  const passwordInput = event.target.password;
+  const usernameInput = event.target.username.value;
+  const passwordInput = event.target.password.value;
 
-  console.log(usernameInput.value);
-  console.log(passwordInput.value);
+  console.log(usernameInput);
+  console.log(passwordInput);
 
   const url = 'http://localhost:3004/login'
 
   return fetch(url, {
     method: "post",
-    body: {
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
       username: usernameInput,
       password: passwordInput
-    }
+    })
   })
     .then(res => res.json())
     .then(res => { console.log(res); return res })

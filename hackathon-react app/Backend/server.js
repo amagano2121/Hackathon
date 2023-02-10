@@ -5,7 +5,7 @@ const bodyParser = require("body-parser")
 
 const app = express();
 app.use(cors())
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 const port = 3004;
 
 console.log("Server starting on port: " + port)
@@ -109,7 +109,7 @@ app.get('/directory/:username', async (req, res) => {
 })
 
 app.post('/login', async (req, res) => {
-   console.log(req);
+   console.log(req.body);
    attemptedPW = req.body.password
    attemptedUN = req.body.username
    console.log(attemptedPW)
