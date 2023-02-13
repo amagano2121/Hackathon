@@ -67,15 +67,17 @@ app.get('/directory', async (req, res) => {
    filteroutSalary(processData)
 })
 
-app.get('/directory/:username', async (req, res) => {
+app.get('/directory/user/:username', async (req, res) => {
    console.log(req.headers)
    attemptedPW = req.headers.password
-   attemptedUN = req.headers.username
+   //attemptedUN = req.headers.username
+   attemptedUN = req.params.username
    console.log(attemptedPW)
    console.log(attemptedUN)
    let valid = ((await db.collection('Usernames/Passwords')
       .findOne({ username: attemptedUN }))?.password === attemptedPW);
    console.log(`/directory/user:`, valid);
+   if (!valid) res.send([]);
 
    let returned_people = []
 

@@ -21,7 +21,7 @@ const getPeople = () => {
     console.log("storedUN", storedUN)
     console.log("storedPW", storedPW) */
     const creds = JSON.parse(localStorage.getItem('token'))
-    const url = 'http://localhost:3004/directory/' + creds.username
+    const url = 'http://localhost:3004/directory/user/' + creds.username
     return fetch(url, {
         method: "get",
         headers: {
