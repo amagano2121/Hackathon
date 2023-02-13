@@ -76,7 +76,10 @@ export const Login = () => {
 
   function handleSignout(event) {
     console.log('deleting: ', JSON.parse(localStorage.getItem('token')))
-    localStorage.removeItem('token')
+    localStorage.setItem('token', JSON.stringify({
+      'username': '',
+      'password': ''
+    }))
   }
 }
 

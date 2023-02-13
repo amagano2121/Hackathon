@@ -71,14 +71,17 @@ app.get('/directory/:username', async (req, res) => {
    console.log(req.headers)
    attemptedPW = req.headers.password
    attemptedUN = req.headers.username
+   console.log(attemptedPW)
+   console.log(attemptedUN)
    let valid = ((await db.collection('Usernames/Passwords')
       .findOne({ username: attemptedUN }))?.password === attemptedPW);
-   console.log(`/directory/user:`, req.headers, valid);
+   console.log(`/directory/user:`, valid);
 
    let returned_people = []
 
    //return the user's username
-   const username = req.params.username
+   //const username = req.params.username
+   const username = attemptedUN
 
    //return just the user
    const user = await db.collection('Salary').findOne({ last_name: username })
