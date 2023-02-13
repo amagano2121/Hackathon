@@ -15,8 +15,8 @@ export const Login = () => {
           <img src={logo} className='Login-logo' />
         </div>
 
-        <div>
-          <h1 className='Login-Directory'>
+        <div className='Login-Directory'>
+          <h1 >
             | Employee Directory Login
           </h1>
         </div>
@@ -29,7 +29,7 @@ export const Login = () => {
         <div><label htmlFor="password" className="Login">Password: </label></div>
         <input type="text" id="password" />
 
-        <div><button>Submit</button></div>
+        <div><button className='Login-Button'>Submit</button></div>
       </form>
       <button onClick={handleSignout}>Sign out</button>
 
