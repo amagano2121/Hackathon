@@ -16,7 +16,7 @@ export const Login = () => {
         </div>
 
         <div className='Login-Directory'>
-          <h1 >
+          <h1>
             | Employee Directory Login
           </h1>
         </div>
