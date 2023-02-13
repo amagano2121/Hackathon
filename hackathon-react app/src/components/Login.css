@@ -25,10 +25,38 @@
 
 .Login-Directory {
     color: black;
-    font-size: 20px;
+    font-size: 12px;
     font-family: 'Bold Freight Sans';
+    top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .Login-Form {
     background-color: lightgrey;
+}
+
+
+.Login-Directory2 {
+    color: black;
+    font-size: 20px;
+    font-family: 'Bold Freight Sans';
+    top: 10px;
+}
+
+.Login-Button {
+    display: inline-block;
+    background-color: white;
+    padding: 5px;
+    font-family: 'Bold Freight Sans';
+    width: 100px;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    border: 4px double #cccccc;
+    border-radius: 5px;
+    font-size: 15px;
+
+    margin: 5px;
 }
